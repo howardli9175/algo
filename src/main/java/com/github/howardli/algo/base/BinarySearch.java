@@ -1,5 +1,7 @@
 package com.github.howardli.algo.base;
 
+import com.github.howardli.algo.util.ArrayUtil;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
@@ -11,10 +13,13 @@ import java.util.function.ToIntFunction;
  * 输出：a在A中的位置，不存在返回-1
  */
 public class BinarySearch {
+
     static Random rand = new Random(System.currentTimeMillis());
 
     public static void main(String[] args){
-        test();
+
+//        test();
+        randomTest();
     }
 
     public static void test(){
@@ -22,7 +27,7 @@ public class BinarySearch {
         int b = 0;
         input = new int[]{0, 0,0,1,1,3};
         b = 1;
-        int pos = solveNoRecursion(input,b);
+        int pos = solveNoRecursionSimpleBadFix(input,b);
         System.out.println(String.format("the pos of %d in %s is %d", b, Arrays.toString(input), pos));
     }
 
@@ -30,7 +35,7 @@ public class BinarySearch {
         int bound = 10;
         int testCount = 5;
         for (int i = 0; i < testCount; i++) {
-            Integer[] rawInput = randomArray(15, bound);
+            Integer[] rawInput = ArrayUtil.randomIntegerArray(15, bound);
             if(rand.nextInt(bound)>(bound/2)){
                 Arrays.sort(rawInput);
             }else{
@@ -49,13 +54,46 @@ public class BinarySearch {
 
     }
 
-    public static Integer[] randomArray(int size, int bound){
-        Integer[] res = new Integer[size];
-        for (int i = 0; i < size; i++) {
-            res[i] = rand.nextInt(bound);
+    /**
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static int solveNoRecursionSimpleBadFix(int[] nums, int target){
+        int pivot, left = 0, right = nums.length-1;
+        while(left<right){
+            System.out.println(String.format("left - %d, right - %d", left,right));
+            pivot = (left + right)/2; // left <= pivot < right
+            if(nums[pivot]<target) left = pivot+1;
+            else right = pivot;
         }
-        return res;
+        return nums[left]==target?left:-1;
     }
+
+
+    /**
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static int solveNoRecursionSimpleBad(int[] nums, int target){
+        int pivot, left = 0, right = nums.length-1;
+        while(left<right){
+            System.out.println(String.format("left - %d, right - %d", left,right));
+            pivot = (left + right)/2; // left <= pivot < right,如果nums[pivot]=target,left=pivot=left，循环永不结束
+            if(nums[pivot]>target) right = pivot-1;
+            else left = pivot;
+        }
+        // mid>target right=pivot-1
+        // mid<target left=pivot+1
+        // mid=target left=pivot+1可以吗？不可以。right=pivot-1可以吗？
+        // can left be greater than right?
+        // left<=pivot<=right-1<right, left<=right-1
+        // left=pivot<right
+        // right = pivot-1 = (left+right)/2-1>=(left+left+1)/2-1=left-0.5, right是整数，right>=left
+        return nums[left]==target?left:-1;
+    }
+
 
     /**
      * 不重复，正序
