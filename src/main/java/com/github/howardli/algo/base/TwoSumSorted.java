@@ -15,6 +15,9 @@ public class TwoSumSorted {
     }
 
     /**
+     *
+     * 两个指针，
+     *
      * 时间 - n
      * 空间 - 1
      * @param arr

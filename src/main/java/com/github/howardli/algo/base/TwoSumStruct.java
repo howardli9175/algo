@@ -12,6 +12,11 @@ import java.util.*;
 public class TwoSumStruct {
 
     public static void main(String[] args){
+        int n = 9;
+        char[] res = new char[n];
+        Arrays.fill(res,'a');
+        if(n%2!=0) res[0]='b';
+        String a = String.copyValueOf(res);
         Solve s = new Solve3();
         s.add(1);
         s.add(3);

@@ -34,6 +34,10 @@ public class TwoSum {
 
 
     /**
+     *
+     * 用一个map来存已经见过的数
+     * 一次循环：
+     * 1、把数和位置放进map，如果
      * 时间 - n
      * 空间 - n
      * @param arr
@@ -53,6 +57,10 @@ public class TwoSum {
 
 
     /**
+     *
+     * 暴力
+     * 两层循环
+     *
      * 时间 - n2
      * 空间 - 1
      * @param arr
