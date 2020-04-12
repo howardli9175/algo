@@ -25,6 +25,7 @@ public class ReverseInteger {
 //        System.out.println(-12%10);
 //        System.out.println(-1%10);
         System.out.println(solveV2(-123));// -321
+        System.out.println(solveV2(0));// 0
         System.out.println(solveV2(10));// 1
         System.out.println(solveV2(100));// 1
         System.out.println(solveV2(123));// 321
