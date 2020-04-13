@@ -10,11 +10,25 @@ package com.github.howardli.algo.base;
  * Is your algorithm still O(log n) in runtime complexity?
  *
  */
-public class SortRotateArray2 {
+public class MinSortRotateArray2 {
     public static void main(String[] args){
         System.out.println(solveV2(new int[]{1,3,5}));//1
         System.out.println(solveV2(new int[]{2,2,2,0,0,1}));//0
         System.out.println(solveV2(new int[]{3,3,1,3}));//1
+    }
+
+    public static int solveV3(int[] nums){
+        int l = 0, r = nums.length-1, mid = 0;
+        // nums[l]<nums[r] 说明是有序的，返回nums[l]
+        while(l<r&&nums[l]>=nums[r]) {
+            mid = (l + r) / 2; // l <= mid < r
+            if(nums[mid]>nums[r]) l = mid+1; //
+                // l>=r  mid<=r 5 5 3 3 3右 5 0 3 3 3左
+            else if(nums[mid]<nums[l]) r=mid; // 5 x 2 x 3
+            else l++;// l<=mid<=r 5 0 3 3 3左  5 6 3 3 3
+
+        }
+        return nums[l];
     }
 
     /**
