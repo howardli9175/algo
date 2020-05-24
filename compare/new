@@ -1,0 +1,24 @@
+data = data
+.replaceAll("\\[","")
+.replaceAll("]","")
+.replaceAll(" ","");
+if(data==null || data.trim().length()<=0) return null;
+String[] dataArr = data.split(",");
+Queue<String> dataList = new LinkedList<String>(Arrays.asList(dataArr));
+Stack<TreeNode> todo = new Stack<>();
+String curStr = dataArr[0].trim();
+TreeNode root = new TreeNode(Integer.valueOf(curStr));
+todo.push(root);
+int i = 1;
+TreeNode lastNode = root;
+while(i<dataArr.length-1){
+curStr = dataArr[i].trim();
+TreeNode curNode = null;
+if(!"null".equals(curStr)) curNode = new TreeNode(Integer.valueOf(curStr));
+if(null!=lastNode)lastNode.left = curNode;
+else todo.pop().right = curNode;
+if(null!=curNode) todo.push(curNode);
+lastNode = curNode;
+i++;
+}
+return root;
